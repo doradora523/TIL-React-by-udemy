@@ -14,7 +14,7 @@ const ExpenseForm = (props) => {
   //   enteredDate: "",
   // });
 
-    const titleChangeHandler = (event) => {
+  const titleChangeHandler = (event) => {
     // 1.
     setEnteredTitle(event.target.value);
     // 이 접근방법은 독립적인 state를 가질 때 사용한다.
@@ -47,7 +47,7 @@ const ExpenseForm = (props) => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -60,44 +60,49 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label>Title</label>
-          <input
-            type="text"
-            onChange={titleChangeHandler}
-            // 입력된 값을 저장하기 위해서 useState를 사용, 변경사항을 수신
-            value={enteredTitle}
-            // 입력 요소들이 갖는 내부 값의 프로퍼티를 설정, 입력에 상태를 다시 보내줌
-            // * 양방향 바인딩 : 폼 전송에 따라 사용자의 입력을 모으거나 변경할 수 있게 해주기에 유용함
-          />
+    <div>
+      <form onSubmit={submitHandler}>
+        <div className="new-expense__controls">
+          <div className="new-expense__control">
+            <label>Title</label>
+            <input
+              type="text"
+              onChange={titleChangeHandler}
+              // 입력된 값을 저장하기 위해서 useState를 사용, 변경사항을 수신
+              value={enteredTitle}
+              // 입력 요소들이 갖는 내부 값의 프로퍼티를 설정, 입력에 상태를 다시 보내줌
+              // * 양방향 바인딩 : 폼 전송에 따라 사용자의 입력을 모으거나 변경할 수 있게 해주기에 유용함
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Amount</label>
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              onChange={amountChangeHandler}
+              value={enteredAmount}
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Date</label>
+            <input
+              type="date"
+              min="2019-01-01"
+              max="2023-12-31"
+              onChange={dateChangeHandler}
+              value={enteredDate}
+            />
+          </div>
         </div>
-        <div className="new-expense__control">
-          <label>Amount</label>
-          <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            onChange={amountChangeHandler}
-            value={enteredAmount}
-          />
+        <div className="new-expense__actions">
+          <button type="button" onClick={props.onCancel}>
+            Cancel
+          </button>
+          <button type="submit">Add Expense</button>
         </div>
-        <div className="new-expense__control">
-          <label>Date</label>
-          <input
-            type="date"
-            min="2019-01-01"
-            max="2023-12-31"
-            onChange={dateChangeHandler}
-            value={enteredDate}
-          />
-        </div>
-      </div>
-      <div className="new-expense__actions">
-        <button type="submit">Add Expense</button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 
