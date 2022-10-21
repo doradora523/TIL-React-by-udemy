@@ -26,9 +26,14 @@ const App = () => {
     },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("In App.js");
+    console.log(expense);
+  };
+
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses item={expenses} />
       {/* props로 내려줄 데이터를 컴포넌트 안에서 이름={데이터함수} 입력 */}
     </div>
